@@ -35,7 +35,9 @@ export class App extends Component {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-          <button type="submit">Add contact</button>
+          <button className="submitContactBtn" type="submit">
+            Add contact
+          </button>
         </form>
       </div>
     );
