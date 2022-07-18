@@ -6,6 +6,16 @@ export class App extends Component {
     name: '',
     number: '',
   };
+  inputHandler = evt => {
+    const { name, value } = evt.currentTarget;
+    this.setState({ [name]: value });
+  };
+  onContactInfoSubmit = evt => {
+    evt.preventDefault();
+    const formValue = evt.currentTarget.value;
+    console.log(formValue);
+    this.setState(prevState => ({ contacts: prevState.push(formValue) }));
+  };
   render() {
     return (
       <div
@@ -21,6 +31,7 @@ export class App extends Component {
         <form action="">
           <label htmlFor="name">Name</label>
           <input
+            onChange={this.inputHandler}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -29,16 +40,25 @@ export class App extends Component {
           />
           <label htmlFor="name">Number</label>
           <input
+            onChange={this.inputHandler}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-          <button className="submitContactBtn" type="submit">
+          <button
+            className="submitContactBtn"
+            type="submit"
+            onSubmit={this.onContactInfoSubmit}
+          >
             Add contact
           </button>
         </form>
+        <div>
+          <h2>Contacts</h2>
+          <ul></ul>
+        </div>
       </div>
     );
   }
