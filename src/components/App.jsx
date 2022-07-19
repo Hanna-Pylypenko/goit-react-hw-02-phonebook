@@ -43,15 +43,15 @@ export class App extends Component {
           color: '#010101',
         }}
       >
+        <h1>Phonebook</h1>
         <ContactsForm onSubmit={this.onSubmitHandler} />
-        <div>
-          <h2>Contacts:</h2>
-          <Filter onChange={this.onFilterHadnler} />
-          <ContactsList
-            contacts={this.state.contacts}
-            filter={this.state.filter}
-          />
-        </div>
+
+        <h2>Contacts:</h2>
+        <Filter onChange={this.onFilterHadnler} />
+        <ContactsList
+          contacts={this.state.contacts}
+          filter={this.state.filter}
+        />
       </div>
     );
   }
