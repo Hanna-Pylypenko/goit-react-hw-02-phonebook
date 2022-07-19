@@ -7,7 +7,6 @@ export class Filter extends Component {
   };
   filterId = nanoid();
   onSearchInputChange = evt => {
-    console.log(evt.currentTarget.value);
     this.setState({ filter: evt.currentTarget.value });
     this.props.onChange(this.state.filter);
   };
