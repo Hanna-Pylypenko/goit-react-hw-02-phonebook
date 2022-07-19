@@ -1,3 +1,8 @@
-export const ContactsListItem = ({ contact }) => {
-  return <li>{contact}</li>;
+import css from './ContactsListItem.module.css';
+export const ContactsListItem = ({ name, number }) => {
+  return (
+    <li className={css.contactsListItem}>
+      {name}:{number}
+    </li>
+  );
 };
