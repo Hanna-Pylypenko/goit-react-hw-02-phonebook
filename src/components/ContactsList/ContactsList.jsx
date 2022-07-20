@@ -1,8 +1,8 @@
 import css from './ContactsList.module.css';
+import PropTypes from 'prop-types';
 export const ContactsList = ({ contacts, filter, deleteItem }) => {
-  console.log({ contacts, filter });
   return (
-    <ul>
+    <ul className="contactsList">
       {contacts
         .filter(contact =>
           contact.name.toLowerCase().includes(filter.toLowerCase())
@@ -20,4 +20,15 @@ export const ContactsList = ({ contacts, filter, deleteItem }) => {
         })}
     </ul>
   );
+};
+ContactsList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  filter: PropTypes.string.isRequired,
+  deleteItem: PropTypes.func.isRequired,
 };

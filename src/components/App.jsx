@@ -3,8 +3,6 @@ import { ContactsList } from './ContactsList/ContactsList';
 import { nanoid } from 'nanoid';
 import { ContactsForm } from './ContactsForm/ContactsForm';
 import { Filter } from './Filter/Filter';
-// import { ContactsForm } from './ContactsForm/ContactsForm';
-// import { ContactsListItem } from './ContactsList/ContactListItem';
 
 export class App extends Component {
   state = {
@@ -19,21 +17,27 @@ export class App extends Component {
   onFilterHadnler = evt => {
     this.setState({ filter: evt.currentTarget.value });
   };
-  onSubmitChecker = ({ name }) => {
-    console.log({ name });
-    // {
-    //   this.state.name === name && alert(`${{ name }} is already in contacts`);
-    // }
-  };
+
   onSubmitHandler = ({ name, number }) => {
-    const contact = {
+    let contactData = {
       id: nanoid(),
       name: name,
       number: number,
     };
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, contact],
-    }));
+    this.state.contacts.forEach(contact => {
+      if (contact.name.toLowerCase() === name.toLowerCase()) {
+        alert(`${name} is already in contacts`);
+        contactData = {
+          id: '',
+          name: '',
+          number: '',
+        };
+      }
+    });
+    contactData.id &&
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, contactData],
+      }));
   };
   deleteItem = itemId => {
     this.setState(prevState => ({
@@ -47,19 +51,16 @@ export class App extends Component {
           height: '100vh',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           alignItems: 'center',
           fontSize: 40,
           color: '#010101',
         }}
       >
         <h1>Phonebook</h1>
-        <ContactsForm
-          onSubmit={this.onSubmitHandler}
-          // sameDataCheck={this.onSubmitChecker}
-        />
+        <ContactsForm onSubmit={this.onSubmitHandler} />
 
-        <h2>Contacts:</h2>
+        <h2>Contacts</h2>
         <Filter value={this.state.filter} onChange={this.onFilterHadnler} />
         <ContactsList
           deleteItem={this.deleteItem}
