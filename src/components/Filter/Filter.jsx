@@ -1,27 +1,19 @@
 import { nanoid } from 'nanoid';
-import { Component } from 'react';
 
-export class Filter extends Component {
-  state = {
-    filter: '',
-  };
-  filterId = nanoid();
-  onSearchInputChange = evt => {
-    this.setState({ filter: evt.currentTarget.value });
-    this.props.onChange(this.state.filter);
-  };
-  render() {
-    return (
-      <div>
-        <label htmlFor={this.filterId}>Find contacts by name</label>
+export const Filter = ({ value, onChange }) => {
+  const filterId = nanoid();
+  return (
+    <div>
+      <label htmlFor={filterId}>
+        Find contacts by name
         <input
-          value={this.state.filter}
+          value={value}
           type="text"
           name="filter"
-          id={this.filterId}
-          onChange={this.onSearchInputChange}
+          id={filterId}
+          onChange={onChange}
         />
-      </div>
-    );
-  }
-}
+      </label>
+    </div>
+  );
+};

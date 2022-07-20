@@ -15,7 +15,9 @@ export class ContactsForm extends Component {
 
   onContactInfoSubmit = evt => {
     evt.preventDefault();
+    // this.props.sameDataCheck(this.state.name);
     this.props.onSubmit(this.state);
+
     this.reset();
   };
   reset = () => {

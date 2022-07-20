@@ -1,5 +1,5 @@
-import { ContactsListItem } from './ContactListItem';
-export const ContactsList = ({ contacts, filter }) => {
+import css from './ContactsList.module.css';
+export const ContactsList = ({ contacts, filter, deleteItem }) => {
   console.log({ contacts, filter });
   return (
     <ul>
@@ -11,7 +11,12 @@ export const ContactsList = ({ contacts, filter }) => {
           const name = contact.name;
           const number = contact.number;
           const id = contact.id;
-          return <ContactsListItem name={name} number={number} key={id} />;
+          return (
+            <li key={id} className={css.contactsListItem}>
+              {name}:{number}
+              <button onClick={() => deleteItem(id)}>Delete</button>
+            </li>
+          );
         })}
     </ul>
   );

@@ -16,9 +16,14 @@ export class App extends Component {
     ],
     filter: '',
   };
-  onFilterHadnler = data => {
-    console.log(data);
-    this.setState({ filter: data });
+  onFilterHadnler = evt => {
+    this.setState({ filter: evt.currentTarget.value });
+  };
+  onSubmitChecker = ({ name }) => {
+    console.log({ name });
+    // {
+    //   this.state.name === name && alert(`${{ name }} is already in contacts`);
+    // }
   };
   onSubmitHandler = ({ name, number }) => {
     const contact = {
@@ -28,6 +33,11 @@ export class App extends Component {
     };
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
+    }));
+  };
+  deleteItem = itemId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== itemId),
     }));
   };
   render() {
@@ -44,11 +54,15 @@ export class App extends Component {
         }}
       >
         <h1>Phonebook</h1>
-        <ContactsForm onSubmit={this.onSubmitHandler} />
+        <ContactsForm
+          onSubmit={this.onSubmitHandler}
+          // sameDataCheck={this.onSubmitChecker}
+        />
 
         <h2>Contacts:</h2>
-        <Filter onChange={this.onFilterHadnler} />
+        <Filter value={this.state.filter} onChange={this.onFilterHadnler} />
         <ContactsList
+          deleteItem={this.deleteItem}
           contacts={this.state.contacts}
           filter={this.state.filter}
         />
