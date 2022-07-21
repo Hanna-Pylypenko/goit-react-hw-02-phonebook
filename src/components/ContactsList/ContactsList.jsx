@@ -2,11 +2,8 @@ import css from './ContactsList.module.css';
 import PropTypes from 'prop-types';
 export const ContactsList = ({ filteredItems, deleteItem }) => {
   return (
-    <ul className="contactsList">
-      {filteredItems.map(item => {
-        const name = item.name;
-        const number = item.number;
-        const id = item.id;
+    <ul className={css.contactsList}>
+      {filteredItems.map(({ name, number, id }) => {
         return (
           <li key={id} className={css.contactsListItem}>
             {name}:{number}
@@ -18,6 +15,12 @@ export const ContactsList = ({ filteredItems, deleteItem }) => {
   );
 };
 ContactsList.propTypes = {
-  filteredItems: PropTypes.array.isRequired,
+  filteredItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   deleteItem: PropTypes.func.isRequired,
 };
