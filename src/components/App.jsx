@@ -14,10 +14,15 @@ export class App extends Component {
     ],
     filter: '',
   };
-  onFilterHadnler = evt => {
+  onFilterHandler = evt => {
     this.setState({ filter: evt.currentTarget.value });
   };
 
+  filterContacts = () => {
+    return this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+  };
   onSubmitHandler = ({ name, number }) => {
     let contactData = {
       id: nanoid(),
@@ -44,6 +49,7 @@ export class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== itemId),
     }));
   };
+
   render() {
     return (
       <div
@@ -61,11 +67,10 @@ export class App extends Component {
         <ContactsForm onSubmit={this.onSubmitHandler} />
 
         <h2>Contacts</h2>
-        <Filter value={this.state.filter} onChange={this.onFilterHadnler} />
+        <Filter value={this.state.filter} onChange={this.onFilterHandler} />
         <ContactsList
           deleteItem={this.deleteItem}
-          contacts={this.state.contacts}
-          filter={this.state.filter}
+          filteredItems={this.filterContacts()}
         />
       </div>
     );
